@@ -4,6 +4,7 @@
 
 ### RTL
 
+- [Docs](https://testing-library.com/docs/)
 - provides virtual DOM for tests
 - renders components into virtual DOM
 - searches virtual DOM
@@ -59,6 +60,7 @@ expect(elementsArray).toHaveLength(7);
 - `src/setup/Tests.js` imports it before each test, makes matchers available
 - DOM-based matchers
   - `toBeVisible()` or `toBeChecked`
+- more on matchers [Docs](https://github.com/testing-library/jest-dom)
 
 ## TDD (Test-Drive Development)
 
@@ -109,3 +111,8 @@ expect(elementsArray).toHaveLength(7);
 - RTL recommends finding elements by accessibility handles
 - [About Queries](https://testing-library.com/docs/queries/about/#priority)
 - it's preferable to use the `getByRole` query since it's more accessible-friendly
+- [W3C role definitions](https://www.w3.org/TR/wai-aria/#role_definitions)
+  - a role can be added to an element via the `role` attribute
+  - some elements already have built-in roles: `button, a`
+- If you can't find an element like a screen reader would,
+  - then your app isn't friendly to screen readers
