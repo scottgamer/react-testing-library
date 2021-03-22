@@ -23,3 +23,19 @@ test("button changes text content to 'Change to red'", () => {
 
   expect(colorButton.textContent).toBe("Change to red");
 });
+
+describe("initial conditions", () => {
+  test("button starts enabled", () => {
+    render(<App />);
+
+    const colorButton = screen.getByRole("button", { name: "Change to blue" });
+    expect(colorButton).toBeEnabled();
+  });
+
+  test("checkbox starts unchecked", () => {
+    render(<App />);
+
+    const checkbox = screen.getByRole("checkbox");
+    expect(checkbox).not.toBeChecked();
+  });
+});
