@@ -116,3 +116,12 @@ expect(elementsArray).toHaveLength(7);
   - some elements already have built-in roles: `button, a`
 - If you can't find an element like a screen reader would,
   - then your app isn't friendly to screen readers
+
+## Unit Testing Functions
+
+- Functions separate from components
+  - used by several components
+  - complex logic
+- unit test if
+  - complex logic difficult to test via functional tests
+  - too many edge cases
