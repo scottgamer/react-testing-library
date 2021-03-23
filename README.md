@@ -100,6 +100,12 @@ expect(elementsArray).toHaveLength(7);
 - easy to pinpoint failures
 - further from how users interact with software
 - more likely to break with refactoring
+- for more complicated functions, unit tests help with:
+  - covering all possible edge cases
+  - determining what caused functional tests to fail
+- issues with functional tests:
+  - high-level makes them resistant to refactors
+  - high-level makes them difficult to diagnose
 
 ## TDD vs BDD
 
@@ -125,3 +131,26 @@ expect(elementsArray).toHaveLength(7);
 - unit test if
   - complex logic difficult to test via functional tests
   - too many edge cases
+
+## Formatting and Linting with Jest-DOM
+
+To manage formatting and linting use eslint with prettier
+
+```bash
+npm i eslint-plugin-testing-library eslint-plugin-jest-dom
+```
+
+Once installed, create a `.eslintrc.json` file to set the configuration:
+
+```json
+{
+  "plugins": ["testing-library", "jest-dom"],
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "plugin:testing-library/recommended",
+    "plugin:testing:library/react",
+    "plugin:jest-dom/recommended"
+  ]
+}
+```
