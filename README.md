@@ -54,6 +54,27 @@ expect(element.textContent).toBe("hello");
 expect(elementsArray).toHaveLength(7);
 ```
 
+## Events
+
+- Read the [docs](https://testing-library.com/docs/dom-testing-library/api-events/) for events using `dom-testing-library`
+- In most cases, it's recommended to use the [user-event](https://testing-library.com/docs/ecosystem-user-event) which provides advanced simulation of browser interactions than the built-in `fireEvent` method
+
+```bash
+npm install --save-dev @testing-library/user-event @testing-library/dom
+```
+
+```javascript
+import { screen } from "@testing-library/dom";
+import userEvent from "@testing-library/user-event";
+
+test("types inside textarea", () => {
+  document.body.innerHTML = `<textarea />`;
+
+  userEvent.type(screen.getByRole("textbox"), "Hello, World!");
+  expect(screen.getByRole("textbox")).toHaveValue("Hello, World!");
+});
+```
+
 ### Jest-DOM
 
 - comes with cra
@@ -61,6 +82,34 @@ expect(elementsArray).toHaveLength(7);
 - DOM-based matchers
   - `toBeVisible()` or `toBeChecked`
 - more on matchers [Docs](https://github.com/testing-library/jest-dom)
+
+### Query Methods
+
+`command[All]ByQueryType`
+
+command:
+
+- get: expect element to be in the DOM
+- query: expect element not to be in the DOM
+- find: expect element to appear async
+
+[All]:
+
+- (exclude): expect only one match
+- (include): expect more than one match
+
+QueryType:
+
+- Role: most preferred
+- AltText: (images)
+- Text: (display elements)
+- Form elements:
+
+  - PlaceholderText
+  - LabelText
+  - DisplayValue
+
+- more on [Queries](https://testing-library.com/docs/queries/about/)
 
 ## TDD (Test-Drive Development)
 
