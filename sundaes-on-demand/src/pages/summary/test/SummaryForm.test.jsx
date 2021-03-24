@@ -3,6 +3,8 @@ import SummaryForm from "../SummaryForm";
 
 describe("Summary Form", () => {
   test("Initial conditions", () => {
+    render(<SummaryForm />);
+
     const checkbox = screen.getByRole("checkbox", {
       name: /terms and conditions/i,
     });
