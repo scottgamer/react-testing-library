@@ -75,6 +75,35 @@ test("types inside textarea", () => {
 });
 ```
 
+## Mock Service Worker
+
+- [Docs](https://mswjs.io/docs/getting-started)
+- Purpose:
+  - intercept network calls
+  - return specified responses
+- Prevent network calls during tests
+- Set up test conditions using server responses
+
+### Setup
+
+- `npm i msw`
+- create handlers
+- create test server
+- make sure test server listens during all tests
+  - reset after each test
+
+```javascript
+res.get("http://localhosT:3030/acoops", (req, res, ctx) => {});
+```
+
+- handler type: rest or graphql
+- http method to mock: get, post, etc
+- full url to mock
+- response resolver function
+  - req: request object
+  - res: function to create response
+  - ctx: utility to build response
+
 ### Jest-DOM
 
 - comes with cra
