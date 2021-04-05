@@ -122,6 +122,9 @@ command:
 - query: expect element not to be in the DOM
 - find: expect element to appear async
 
+- when expecting async updates use:
+  - `await findAllByRole`
+
 [All]:
 
 - (exclude): expect only one match
