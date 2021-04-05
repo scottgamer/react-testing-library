@@ -124,6 +124,16 @@ command:
 
 - when expecting async updates use:
   - `await findAllByRole`
+- there are some cases when multiple components are mounted aynchronously, in this case, `await findAllBy` isn't enough
+- it's necessary to wrap the query in the `waitFor` statement
+
+```javascript
+await waitFor(async () => {
+  const alerts = await screen.findAllByRole("alert");
+
+  expect(alerts).toHaveLength(2);
+});
+```
 
 [All]:
 
