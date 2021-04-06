@@ -245,3 +245,12 @@ Once installed, create a `.eslintrc.json` file to set the configuration:
   ]
 }
 ```
+
+## Using React's Context
+
+- make context with `createContext`
+- make custom hook with `useContext`
+- make context provider with internal state via `useState`
+  - Provider value is array `[state, setState]`
+- any component that has access to the Provider will access the state in the context
+- export custom hook and provider
