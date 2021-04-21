@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useMemo, useEffect } from "react";
 import { pricePerItem } from "../constants";
+import { formatCurrency } from "../utilities";
 
+// @ts-ignore
 const OrderDetails = createContext();
 
 // create custom hook to check whether we're inside a provider
@@ -17,14 +19,10 @@ export function useOrderDetails() {
 }
 
 function calculateSubtotal(optionType, optionCounts) {
-  // let optionCount = 0;
-  // for (const count of optionCounts[optionType].values) {
-  //   optionCount += count;
-  // }
-
-  const optionCount = optionCounts[optionType].values.reduce((acc, current) => {
-    return acc + current;
-  }, 0);
+  let optionCount = 0;
+  for (const count of optionCounts[optionType].values()) {
+    optionCount += count;
+  }
 
   return optionCount * pricePerItem[optionType];
 }
@@ -34,22 +32,21 @@ export function OrderDetailsProvider(props) {
     scoops: new Map(),
     toppings: new Map(),
   });
-
+  const zeroCurrency = formatCurrency(0);
   const [totals, setTotals] = useState({
-    scoops: 0,
-    toppings: 0,
-    grandTotal: 0,
+    scoops: zeroCurrency,
+    toppings: zeroCurrency,
+    grandTotal: zeroCurrency,
   });
 
   useEffect(() => {
     const scoopsSubtotal = calculateSubtotal("scoops", optionCounts);
     const toppingsSubtotal = calculateSubtotal("toppings", optionCounts);
     const grandTotal = scoopsSubtotal + toppingsSubtotal;
-
     setTotals({
-      scoops: scoopsSubtotal,
-      toppings: toppingsSubtotal,
-      grandTotal,
+      scoops: formatCurrency(scoopsSubtotal),
+      toppings: formatCurrency(toppingsSubtotal),
+      grandTotal: formatCurrency(grandTotal),
     });
   }, [optionCounts]);
 
@@ -64,9 +61,15 @@ export function OrderDetailsProvider(props) {
       setOptionCounts(newOptionCounts);
     }
 
+    function resetOrder() {
+      setOptionCounts({
+        scoops: new Map(),
+        toppings: new Map(),
+      });
+    }
     // getter: object containing option counts for scoops and toppings, subtotals and totals
-    // setter: updateOptionCounts
-    return [{ ...optionCounts, totals }, updateItemCount];
+    // setter: updateOptionCount
+    return [{ ...optionCounts, totals }, updateItemCount, resetOrder];
   }, [optionCounts, totals]);
   return <OrderDetails.Provider value={value} {...props} />;
 }
